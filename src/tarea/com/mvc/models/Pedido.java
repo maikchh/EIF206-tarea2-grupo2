@@ -9,13 +9,14 @@ public class Pedido implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static int contador;
+	private static int contador = 1;
 	private int id;
 	private String nombreCliente;
-	private ArrayList<Pedido> listaPedidos;
+	private ArrayList<Platillo> listaPedidos;
 	private double precioFinal;
 	private String estado;
-	public Pedido(String nombreCliente, ArrayList<Pedido> listaPedidos, double precioFinal) {
+	
+	public Pedido(String nombreCliente, ArrayList<Platillo> listaPedidos, double precioFinal) {
 		this.id = contador++;
 		this.nombreCliente = nombreCliente;
 		this.listaPedidos = listaPedidos;
@@ -40,10 +41,10 @@ public class Pedido implements Serializable{
 	public void setNombreCliente(String nombreCliente) {
 		this.nombreCliente = nombreCliente;
 	}
-	public ArrayList<Pedido> getListaPedidos() {
+	public ArrayList<Platillo> getListaPlatillos() {
 		return listaPedidos;
 	}
-	public void setListaPedidos(ArrayList<Pedido> listaPedidos) {
+	public void setListaPedidos(ArrayList<Platillo> listaPedidos) {
 		this.listaPedidos = listaPedidos;
 	}
 	public double getPrecioFinal() {
@@ -66,10 +67,4 @@ public class Pedido implements Serializable{
 				+ "\nPrecio Final: " + precioFinal 
 				+ "\nEstado: " + estado;
 	}
-	
-	
-	
-
-
-
 }

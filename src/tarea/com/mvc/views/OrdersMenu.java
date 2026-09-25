@@ -1,31 +1,36 @@
 package tarea.com.mvc.views;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class OrdersMenu extends JFrame {
 
 	public JPanel contentPane;
 	public JTextField txtHost;
-	public JTextField textField;
+	public JTextField txtXCliente;
 	public JLabel lblCantidad;
 	public JButton btnEnviarPedido;
 	public JComboBox comboBox;
 	public JButton btnConectar;
 	public JButton btnAgregar;
+	public JButton btnQuitar;
+	public DefaultTableModel model;
+	public JTable table;
+	public JScrollPane scrollPane;
 
 	public OrdersMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,6 +62,7 @@ public class OrdersMenu extends JFrame {
 		panel_2.add(lblHost);
 		
 		txtHost = new JTextField();
+		txtHost.setText("127.0.0.1");
 		txtHost.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		panel_2.add(txtHost);
 		txtHost.setColumns(40);
@@ -101,10 +107,10 @@ public class OrdersMenu extends JFrame {
 		lblCliente.setFont(new Font("Yu Gothic", Font.BOLD, 18));
 		panel_5.add(lblCliente);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Yu Gothic", Font.BOLD, 18));
-		panel_5.add(textField);
-		textField.setColumns(30);
+		txtXCliente = new JTextField();
+		txtXCliente.setFont(new Font("Yu Gothic", Font.BOLD, 18));
+		panel_5.add(txtXCliente);
+		txtXCliente.setColumns(30);
 		
 		btnEnviarPedido = new JButton("Enviar Pedido");
 		btnEnviarPedido.setFont(new Font("Yu Gothic", Font.BOLD, 18));
@@ -123,19 +129,36 @@ public class OrdersMenu extends JFrame {
 		lblTotal.setFont(new Font("Yu Gothic", Font.BOLD, 18));
 		panel_7.add(lblTotal);
 		
-		lblCantidad = new JLabel("cantidad");
+		lblCantidad = new JLabel("0");
 		lblCantidad.setFont(new Font("Yu Gothic", Font.BOLD, 18));
 		panel_7.add(lblCantidad);
 		
-		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar = new JButton("Quitar");
 		btnQuitar.setFont(new Font("Yu Gothic", Font.BOLD, 18));
 		panel_7.add(btnQuitar);
+		
+		scrollPane = new JScrollPane();
+		panel_6.add(scrollPane, BorderLayout.CENTER);
+		
+		model = new DefaultTableModel();
+		table = new JTable(model);
+		scrollPane.setViewportView(table);
 	}
 	
 	public void init() {
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Menu de pedidos");
+	}
+	
+	public void allowChat(boolean allow) {
+		
+		btnAgregar.setEnabled(allow);
+		btnEnviarPedido.setEnabled(allow);
+		comboBox.setEnabled(allow);
+		txtXCliente.setEnabled(allow);
+		btnQuitar.setEnabled(allow);
+		
 	}
 
 }

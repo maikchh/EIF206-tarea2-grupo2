@@ -20,7 +20,7 @@ public class Cliente extends Thread{
 	public void run() {
 		try {
 			client = new Socket(host,PORT);
-			System.out.println("Conectado....");
+			System.out.println("Cliente conectado!");
 
 			out = new ObjectOutputStream(client.getOutputStream());
 			

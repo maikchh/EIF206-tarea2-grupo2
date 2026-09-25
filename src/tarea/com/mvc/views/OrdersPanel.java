@@ -7,22 +7,28 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.border.EmptyBorder;
+
+import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import java.awt.Color;
 
 public class OrdersPanel extends JPanel {
-	private JLabel lblPlatilloss;
-	private JLabel lblTotalCantidadDel;
-	private JLabel lblEstado;
-	private JLabel lblTotal;
-	private JLabel lblNombre;
-	private JButton btnButton;
+	
+	public JLabel lblPlatilloss;
+	public JLabel lblTotalCantidadDel;
+	public JLabel lblEstado;
+	public JLabel lblNumero;
+	public JLabel lblNombre;
+	public JButton btnButton;
 
 	/**
 	 * Create the panel.
 	 */
 	public OrdersPanel() {
+		setBackground(Color.WHITE);
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelButton = new JPanel();
@@ -47,9 +53,9 @@ public class OrdersPanel extends JPanel {
 		lblPedido.setFont(new Font("Yu Gothic", Font.BOLD, 18));
 		panel.add(lblPedido);
 		
-		lblTotal = new JLabel("0");
-		lblTotal.setFont(new Font("Yu Gothic", Font.BOLD, 18));
-		panel.add(lblTotal);
+		lblNumero = new JLabel("0");
+		lblNumero.setFont(new Font("Yu Gothic", Font.BOLD, 18));
+		panel.add(lblNumero);
 		
 		lblNombre = new JLabel("Nombre del Cliente");
 		lblNombre.setFont(new Font("Yu Gothic", Font.BOLD, 18));
@@ -66,7 +72,7 @@ public class OrdersPanel extends JPanel {
 		panel_1.add(lblPlatillos);
 		
 		lblPlatilloss = new JLabel("pedidos seleccionados");
-		lblPlatilloss.setFont(new Font("Yu Gothic", Font.BOLD, 15));
+		lblPlatilloss.setFont(new Font("Yu Gothic", Font.BOLD, 13));
 		panel_1.add(lblPlatilloss);
 		
 		lblTotalCantidadDel = new JLabel("TOTAL: cantidad del precio final");
@@ -78,5 +84,7 @@ public class OrdersPanel extends JPanel {
 		panel_1.add(lblEstado);
 
 	}
+	
+	
 
 }
