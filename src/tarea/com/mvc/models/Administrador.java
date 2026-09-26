@@ -18,7 +18,6 @@ public class Administrador extends Thread{
 	private Socket administrador;
 	private AdministratorView av;
 	private ArrayList<Pedido> pedidos;
-	
 	public Administrador() {
 		av = new AdministratorView();
 		av.init();
@@ -27,23 +26,28 @@ public class Administrador extends Thread{
 	
 	public void run() {
 		try {
+			
 			administrador = new Socket(HOST, PORT);
 			System.out.println("Administrador conectado!");
 			
 			out = new ObjectOutputStream(administrador.getOutputStream());
 			in = new ObjectInputStream(administrador.getInputStream());
 			while(true) {
-				System.out.println("EJECUTANDO");
 				Pedido item = (Pedido) in.readObject();
 				pedidos.add(item);
-				System.out.println("Llego tu pedido de temu: " + pedidos.toString());
 				setPanel();
+				setEntregadosYNoEntregados();
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<Pedido> getPedidos(){
+		return pedidos;
+	}
+	
 	
 	public void setPanel()  {
 		OrdersPanel op = new OrdersPanel();
@@ -62,7 +66,7 @@ public class Administrador extends Thread{
 	public String getPlatillos(ArrayList<Platillo> platillos) {
 		String data = "";
 		for(Platillo p : platillos) {
-			data+= p.getNombre() + ", ";
+			data+= "\n - " + p.getNombre() + "\n";
 		}
 		return data;
 	}
@@ -74,4 +78,27 @@ public class Administrador extends Thread{
 		}
 		return data;
 	}	
+	
+	public void setEntregadosYNoEntregados() {
+		 int entregados= 0;
+		 int noEntregados = 0;
+		 int totalEntregados = 0;
+		 int totalNoEntregados = 0;
+		for(Pedido p : pedidos) {
+			if(p.getEstado().equalsIgnoreCase("Entregado")){
+				entregados++;
+				totalEntregados += p.getPrecioFinal();
+				av.lblEntregados.setText(entregados + "");
+				av.lblTotal.setText(totalEntregados + "");
+
+			}else{
+				noEntregados++;
+				totalNoEntregados += p.getPrecioFinal();
+				av.lblNoEntregados.setText(noEntregados + "");
+				av.llblTotaL3.setText(totalNoEntregados + "");
+			}
+					
+		}
+	}
+	
 }
