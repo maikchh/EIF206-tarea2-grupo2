@@ -20,13 +20,12 @@ public class Administrador extends Thread{
 	private ArrayList<Pedido> pedidos;
 	public Administrador() {
 		av = new AdministratorView();
-		av.init();
 		this.pedidos = new ArrayList<>();
 	}
 	
 	public void run() {
 		try {
-			
+			av.init();
 			administrador = new Socket(HOST, PORT);
 			System.out.println("Administrador conectado!");
 			
@@ -43,14 +42,10 @@ public class Administrador extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
-	public ArrayList<Pedido> getPedidos(){
-		return pedidos;
-	}
-	
-	
+
 	public void setPanel()  {
-		OrdersPanel op = new OrdersPanel();
+		av.panelPedidos.removeAll();
+		OrdersPanel op = new OrdersPanel(this);
 		op.setBackground(new Color(240, 240, 240));
 		for(Pedido p : pedidos) {
 			op.lblNumero.setText(p.getId() + "");
@@ -59,8 +54,9 @@ public class Administrador extends Thread{
 			op.lblTotalCantidadDel.setText("TOTAL: " + getTotal(p.getListaPlatillos()));
 			op.lblEstado.setText("ESTADO: " + p.getEstado());
 			
-			av.panelPedidos.add(op);
+			av.setContentOrders(op);;
 		}
+		
 	}
 	
 	public String getPlatillos(ArrayList<Platillo> platillos) {
@@ -88,17 +84,26 @@ public class Administrador extends Thread{
 			if(p.getEstado().equalsIgnoreCase("Entregado")){
 				entregados++;
 				totalEntregados += p.getPrecioFinal();
-				av.lblEntregados.setText(entregados + "");
-				av.lblTotal.setText(totalEntregados + "");
-
 			}else{
 				noEntregados++;
 				totalNoEntregados += p.getPrecioFinal();
-				av.lblNoEntregados.setText(noEntregados + "");
-				av.llblTotaL3.setText(totalNoEntregados + "");
 			}
 					
 		}
+		
+		av.lblEntregados.setText(entregados + "");
+		av.lblTotal.setText(totalEntregados + "");
+		av.lblNoEntregados.setText(noEntregados + "");
+		av.llblTotaL3.setText(totalNoEntregados + "");
 	}
 	
+	public void changeStatus(int id) {
+		for(Pedido p: pedidos) {
+			if(p.getId() == id) {
+				p.setEstado("Entregado");
+			}
+		}
+		setPanel();	
+		setEntregadosYNoEntregados();
+	}
 }

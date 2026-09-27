@@ -1,19 +1,18 @@
 package tarea.com.mvc.views;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.SwingConstants;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import java.awt.Color;
+import tarea.com.mvc.models.Administrador;
 
 public class OrdersPanel extends JPanel {
 	
@@ -23,14 +22,12 @@ public class OrdersPanel extends JPanel {
 	public JLabel lblNumero;
 	public JLabel lblNombre;
 	public JButton btnButton;
-
 	/**
 	 * Create the panel.
 	 */
-	public OrdersPanel() {
+	public OrdersPanel(Administrador administrador) {
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout(0, 0));
-		
 		JPanel panelButton = new JPanel();
 		panelButton.setBorder(new EmptyBorder(15, 15, 15, 0));
 		FlowLayout flowLayout = (FlowLayout) panelButton.getLayout();
@@ -38,6 +35,9 @@ public class OrdersPanel extends JPanel {
 		add(panelButton, BorderLayout.SOUTH);
 		
 		btnButton = new JButton("Entregar\r\n");
+		btnButton.addActionListener(e->{
+			administrador.changeStatus(Integer.valueOf(lblNumero.getText()));
+		});
 		btnButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnButton.setFont(new Font("Yu Gothic", Font.BOLD, 18));
 		panelButton.add(btnButton);

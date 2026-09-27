@@ -1,6 +1,7 @@
 package tarea.com.mvc.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -11,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.SystemColor;
+
+
 
 public class AdministratorView extends JFrame {
 
@@ -22,6 +23,7 @@ public class AdministratorView extends JFrame {
 	public JLabel lblNoEntregados;
 	public JLabel llblTotaL3;
 	public JPanel panelPedidos;
+
 
 	public AdministratorView() {
 		setBackground(Color.LIGHT_GRAY);
@@ -120,6 +122,7 @@ public class AdministratorView extends JFrame {
 		FlowLayout fl_panelPedidos = (FlowLayout) panelPedidos.getLayout();
 		fl_panelPedidos.setHgap(40);
 		panel.add(panelPedidos, BorderLayout.CENTER);
+		
 	}
 	
 	public void init() {
