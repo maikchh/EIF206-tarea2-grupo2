@@ -47,7 +47,6 @@ public class Server extends Thread{
 	public class AdministratorHandler extends Thread {
 		
 		private Socket client;
-		private ObjectOutputStream out;
 		private ObjectInputStream in;
 		
 		public AdministratorHandler(Socket client) {
@@ -56,7 +55,6 @@ public class Server extends Thread{
 		
 		public void run() {
 			try {
-				out = new ObjectOutputStream(client.getOutputStream());
 				in = new ObjectInputStream(client.getInputStream());
 				
 				while(true) {

@@ -18,23 +18,29 @@ public class Administrador extends Thread{
 	private Socket administrador;
 	private AdministratorView av;
 	private ArrayList<Pedido> pedidos;
+	private static int counter;
+	
 	public Administrador() {
 		av = new AdministratorView();
 		this.pedidos = new ArrayList<>();
+		counter = 1;
 	}
 	
 	public void run() {
 		try {
 			av.init();
+			
 			administrador = new Socket(HOST, PORT);
 			System.out.println("Administrador conectado!");
 			
 			out = new ObjectOutputStream(administrador.getOutputStream());
 			in = new ObjectInputStream(administrador.getInputStream());
+			
 			while(true) {
 				Pedido item = (Pedido) in.readObject();
 				pedidos.add(item);
-				setPanel();
+				setPanel(item);
+				counter++;
 				setEntregadosYNoEntregados();
 			}
 		} catch (Exception e) {
@@ -43,19 +49,17 @@ public class Administrador extends Thread{
 		}
 	}
 
-	public void setPanel()  {
-		av.panelPedidos.removeAll();
-		OrdersPanel op = new OrdersPanel(this);
-		op.setBackground(new Color(240, 240, 240));
-		for(Pedido p : pedidos) {
-			op.lblNumero.setText(p.getId() + "");
+	public void setPanel(Pedido p)  {
+			OrdersPanel op = new OrdersPanel(this);
+			op.setBackground(new Color(240, 240, 240));
+			
+			op.lblNumero.setText(counter + "");
 			op.lblNombre.setText(p.getNombreCliente());
 			op.lblPlatilloss.setText(getPlatillos(p.getListaPlatillos()));
-			op.lblTotalCantidadDel.setText("TOTAL: " + getTotal(p.getListaPlatillos()));
+			op.lblTotalCantidadDel.setText("TOTAL: " + p.getPrecioFinal());
 			op.lblEstado.setText("ESTADO: " + p.getEstado());
 			
 			av.setContentOrders(op);;
-		}
 		
 	}
 	
@@ -80,6 +84,8 @@ public class Administrador extends Thread{
 		 int noEntregados = 0;
 		 int totalEntregados = 0;
 		 int totalNoEntregados = 0;
+		 
+		 
 		for(Pedido p : pedidos) {
 			if(p.getEstado().equalsIgnoreCase("Entregado")){
 				entregados++;
@@ -88,7 +94,6 @@ public class Administrador extends Thread{
 				noEntregados++;
 				totalNoEntregados += p.getPrecioFinal();
 			}
-					
 		}
 		
 		av.lblEntregados.setText(entregados + "");
@@ -102,8 +107,7 @@ public class Administrador extends Thread{
 			if(p.getId() == id) {
 				p.setEstado("Entregado");
 			}
-		}
-		setPanel();	
+		}	
 		setEntregadosYNoEntregados();
 	}
 }

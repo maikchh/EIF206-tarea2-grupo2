@@ -36,7 +36,9 @@ public class OrdersPanel extends JPanel {
 		
 		btnButton = new JButton("Entregar\r\n");
 		btnButton.addActionListener(e->{
+			btnButton.setVisible(false);
 			administrador.changeStatus(Integer.valueOf(lblNumero.getText()));
+			
 		});
 		btnButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnButton.setFont(new Font("Yu Gothic", Font.BOLD, 18));
