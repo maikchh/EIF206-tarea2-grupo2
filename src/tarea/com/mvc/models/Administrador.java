@@ -77,7 +77,25 @@ public class Administrador extends Thread{
 			data+= p.getPrecio();
 		}
 		return data;
-	}	
+	}
+	
+	public void setTotales(int id) {
+		int entregados= Integer.parseInt(this.av.lblEntregados.getText());
+		 int noEntregados = Integer.parseInt(this.av.lblNoEntregados.getText());
+		 int totalEntregados = Integer.parseInt(this.av.lblTotalEntregados.getText());
+		 int totalNoEntregados = Integer.parseInt(this.av.llblTotaLNoEntregados.getText());
+		 
+		 Pedido p = pedidos.get(id);
+		 entregados++;
+		 totalEntregados+= p.getPrecioFinal();
+		 noEntregados--;
+		 totalNoEntregados-= p.getPrecioFinal();  
+		 
+		 av.lblEntregados.setText(entregados + "");
+		 av.lblTotalEntregados.setText(totalEntregados + "");
+		 av.lblNoEntregados.setText(noEntregados + "");
+		 av.llblTotaLNoEntregados.setText(totalNoEntregados + "");
+	}
 	
 	public void setEntregadosYNoEntregados() {
 		 int entregados= 0;
@@ -97,9 +115,9 @@ public class Administrador extends Thread{
 		}
 		
 		av.lblEntregados.setText(entregados + "");
-		av.lblTotal.setText(totalEntregados + "");
+		av.lblTotalEntregados.setText(totalEntregados + "");
 		av.lblNoEntregados.setText(noEntregados + "");
-		av.llblTotaL3.setText(totalNoEntregados + "");
+		av.llblTotaLNoEntregados.setText(totalNoEntregados + "");
 	}
 	
 	public void changeStatus(int id) {
@@ -108,6 +126,6 @@ public class Administrador extends Thread{
 				p.setEstado("Entregado");
 			}
 		}	
-		setEntregadosYNoEntregados();
+		//setEntregadosYNoEntregados();
 	}
 }

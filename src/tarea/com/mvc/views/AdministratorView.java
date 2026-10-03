@@ -19,9 +19,9 @@ public class AdministratorView extends JFrame {
 
 	public JPanel contentPane;
 	public JLabel lblEntregados;
-	public JLabel lblTotal;
+	public JLabel lblTotalEntregados;
 	public JLabel lblNoEntregados;
-	public JLabel llblTotaL3;
+	public JLabel llblTotaLNoEntregados;
 	public JPanel panelPedidos;
 
 
@@ -79,11 +79,11 @@ public class AdministratorView extends JFrame {
 		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(lbl2);
 		
-		lblTotal = new JLabel("0\r\n");
-		lblTotal.setForeground(Color.WHITE);
-		lblTotal.setBackground(Color.BLACK);
-		lblTotal.setFont(new Font("Yu Gothic", Font.BOLD, 18));
-		panel_1.add(lblTotal);
+		lblTotalEntregados = new JLabel("0\r\n");
+		lblTotalEntregados.setForeground(Color.WHITE);
+		lblTotalEntregados.setBackground(Color.BLACK);
+		lblTotalEntregados.setFont(new Font("Yu Gothic", Font.BOLD, 18));
+		panel_1.add(lblTotalEntregados);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(27, 45, 42));
@@ -110,11 +110,11 @@ public class AdministratorView extends JFrame {
 		lbl4.setFont(new Font("Yu Gothic", Font.BOLD, 18));
 		panel_2.add(lbl4);
 		
-		llblTotaL3 = new JLabel("0\r\n");
-		llblTotaL3.setForeground(Color.WHITE);
-		llblTotaL3.setBackground(Color.BLACK);
-		llblTotaL3.setFont(new Font("Yu Gothic", Font.BOLD, 18));
-		panel_2.add(llblTotaL3);
+		llblTotaLNoEntregados = new JLabel("0\r\n");
+		llblTotaLNoEntregados.setForeground(Color.WHITE);
+		llblTotaLNoEntregados.setBackground(Color.BLACK);
+		llblTotaLNoEntregados.setFont(new Font("Yu Gothic", Font.BOLD, 18));
+		panel_2.add(llblTotaLNoEntregados);
 		
 		panelPedidos = new JPanel();
 		panelPedidos.setBorder(new EmptyBorder(25, 0, 0, 0));
