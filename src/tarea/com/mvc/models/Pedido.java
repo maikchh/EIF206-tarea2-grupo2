@@ -19,7 +19,7 @@ public class Pedido implements Serializable{
 	public Pedido(String nombreCliente, ArrayList<Platillo> listaPedidos, double precioFinal) {
 		this.id = contador++;
 		this.nombreCliente = nombreCliente;
-		this.listaPedidos = listaPedidos;
+		this.listaPedidos = new ArrayList<>(listaPedidos);
 		this.precioFinal = precioFinal;
 		this.estado = "No entregado";
 	}
