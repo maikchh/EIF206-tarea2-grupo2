@@ -82,10 +82,10 @@ public class OrdersMenu extends JFrame {
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel_3.add(panel_4, BorderLayout.NORTH);
 		
-		JLabel lblPedido = new JLabel("Pedido");
-		lblPedido.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPedido.setFont(new Font("Yu Gothic", Font.BOLD, 18));
-		panel_4.add(lblPedido);
+		JLabel lblPlatillo = new JLabel("Platillo\r\n");
+		lblPlatillo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPlatillo.setFont(new Font("Yu Gothic", Font.BOLD, 18));
+		panel_4.add(lblPlatillo);
 		
 		comboBox = new JComboBox();
 		comboBox.setPreferredSize(new Dimension(500, 30));

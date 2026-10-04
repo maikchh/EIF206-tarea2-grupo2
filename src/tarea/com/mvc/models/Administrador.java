@@ -11,6 +11,11 @@ import tarea.com.mvc.views.OrdersPanel;
 
 public class Administrador extends Thread{
 
+	private static int entregados;
+	private static int totalEntregados;
+	private static int noEntregados;
+	private static int totalNoEntregados;
+	
 	private static final int PORT = 5000;
 	private ObjectOutputStream out;
 	private static final String HOST = "127.0.0.1";
@@ -21,6 +26,10 @@ public class Administrador extends Thread{
 	private static int counter;
 	
 	public Administrador() {
+		entregados = 0;
+		totalEntregados = 0;
+		noEntregados = 0;
+		totalNoEntregados = 0;
 		av = new AdministratorView();
 		this.pedidos = new ArrayList<>();
 		counter = 1;
@@ -38,10 +47,12 @@ public class Administrador extends Thread{
 			
 			while(true) {
 				Pedido item = (Pedido) in.readObject();
+				System.out.println(item.getListaPlatillos().toString());
 				pedidos.add(item);
+				noEntregados(item);
 				setPanel(item);
 				counter++;
-				setEntregadosYNoEntregados();
+				
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -55,7 +66,10 @@ public class Administrador extends Thread{
 			
 			op.lblNumero.setText(counter + "");
 			op.lblNombre.setText(p.getNombreCliente());
-			op.lblPlatilloss.setText(getPlatillos(p.getListaPlatillos()));
+			
+			//System.out.println(p.getListaPlatillos().toString());
+			
+			getPlatillos(op);
 			op.lblTotalCantidadDel.setText("TOTAL: " + p.getPrecioFinal());
 			op.lblEstado.setText("ESTADO: " + p.getEstado());
 			
@@ -63,12 +77,19 @@ public class Administrador extends Thread{
 		
 	}
 	
-	public String getPlatillos(ArrayList<Platillo> platillos) {
-		String data = "";
-		for(Platillo p : platillos) {
-			data+= "\n - " + p.getNombre() + "\n";
+	public void noEntregados(Pedido p) {
+		this.noEntregados+= 1;
+		this.totalNoEntregados+= p.getPrecioFinal();
+		
+		this.av.lblNoEntregados.setText(noEntregados+"");
+		this.av.llblTotaLNoEntregados.setText(totalNoEntregados+"");
+	}
+	
+	public void getPlatillos(OrdersPanel op) {
+		for(Platillo p : pedidos.get(pedidos.size() - 1).getListaPlatillos()) {
+			op.model.addElement(p.getNombre());
 		}
-		return data;
+		
 	}
 	
 	public Double getTotal(ArrayList<Platillo> platillos) {
@@ -79,45 +100,18 @@ public class Administrador extends Thread{
 		return data;
 	}
 	
-	public void setTotales(int id) {
-		int entregados= Integer.parseInt(this.av.lblEntregados.getText());
-		 int noEntregados = Integer.parseInt(this.av.lblNoEntregados.getText());
-		 int totalEntregados = Integer.parseInt(this.av.lblTotalEntregados.getText());
-		 int totalNoEntregados = Integer.parseInt(this.av.llblTotaLNoEntregados.getText());
-		 
+	public void setEntregados(int id) {
 		 Pedido p = pedidos.get(id);
-		 entregados++;
-		 totalEntregados+= p.getPrecioFinal();
-		 noEntregados--;
-		 totalNoEntregados-= p.getPrecioFinal();  
 		 
-		 av.lblEntregados.setText(entregados + "");
-		 av.lblTotalEntregados.setText(totalEntregados + "");
-		 av.lblNoEntregados.setText(noEntregados + "");
-		 av.llblTotaLNoEntregados.setText(totalNoEntregados + "");
-	}
-	
-	public void setEntregadosYNoEntregados() {
-		 int entregados= 0;
-		 int noEntregados = 0;
-		 int totalEntregados = 0;
-		 int totalNoEntregados = 0;
+		 this.entregados++;
+		 this.totalEntregados+= p.getPrecioFinal();
+		 this.noEntregados--;
+		 this.totalNoEntregados-= p.getPrecioFinal();  
 		 
-		 
-		for(Pedido p : pedidos) {
-			if(p.getEstado().equalsIgnoreCase("Entregado")){
-				entregados++;
-				totalEntregados += p.getPrecioFinal();
-			}else{
-				noEntregados++;
-				totalNoEntregados += p.getPrecioFinal();
-			}
-		}
-		
-		av.lblEntregados.setText(entregados + "");
-		av.lblTotalEntregados.setText(totalEntregados + "");
-		av.lblNoEntregados.setText(noEntregados + "");
-		av.llblTotaLNoEntregados.setText(totalNoEntregados + "");
+		 this.av.lblEntregados.setText(entregados + "");
+		 this.av.lblTotalEntregados.setText(totalEntregados + "");
+		 this.av.lblNoEntregados.setText(noEntregados + "");
+		 this.av.llblTotaLNoEntregados.setText(totalNoEntregados + "");
 	}
 	
 	public void changeStatus(int id) {
@@ -126,6 +120,5 @@ public class Administrador extends Thread{
 				p.setEstado("Entregado");
 			}
 		}	
-		//setEntregadosYNoEntregados();
 	}
 }
