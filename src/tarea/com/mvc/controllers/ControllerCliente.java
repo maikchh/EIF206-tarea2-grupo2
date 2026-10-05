@@ -64,7 +64,6 @@ public class ControllerCliente {
 		});
 		
 		om.btnEnviarPedido.addActionListener(e->{
-			System.out.println(platillos.toString());
 			usuario = om.txtXCliente.getText();
 			if(!usuario.isEmpty() && platillos.size() > 0) {
 				client.send(new Pedido(usuario, platillos, total));

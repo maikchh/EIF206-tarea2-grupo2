@@ -91,6 +91,7 @@ public class OrdersPanel extends JPanel {
 		panel_1.add(scrollPane);
 		
 		listPlatillos = new JList(model);
+		listPlatillos.setFont(new Font("Yu Gothic", Font.BOLD, 16));
 		//listPlatillos.setModel(model);
 		scrollPane.setViewportView(listPlatillos);
 		

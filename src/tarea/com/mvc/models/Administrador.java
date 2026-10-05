@@ -47,7 +47,6 @@ public class Administrador extends Thread{
 			
 			while(true) {
 				Pedido item = (Pedido) in.readObject();
-				System.out.println(item.getListaPlatillos().toString());
 				pedidos.add(item);
 				noEntregados(item);
 				setPanel(item);
